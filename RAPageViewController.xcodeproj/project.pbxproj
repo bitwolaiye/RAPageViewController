@@ -48,6 +48,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DA686E6E16DE631500AB121C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		DAFB749A16DDDC2000C76724 /* NSIndexPath+PSTCollectionViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSIndexPath+PSTCollectionViewAdditions.h"; sourceTree = "<group>"; };
 		DAFB749B16DDDC2000C76724 /* NSIndexPath+PSTCollectionViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSIndexPath+PSTCollectionViewAdditions.m"; sourceTree = "<group>"; };
 		DAFB749C16DDDC2000C76724 /* PSTCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSTCollectionView.h; sourceTree = "<group>"; };
@@ -155,6 +156,7 @@
 		FF7C60CD15B1E28F00D3F3AF = {
 			isa = PBXGroup;
 			children = (
+				DA686E6E16DE631500AB121C /* README.md */,
 				DAFB749916DDDC2000C76724 /* PSTCollectionView */,
 				FF7C60E015B1E28F00D3F3AF /* RAPageViewController.h */,
 				FF7C60E215B1E28F00D3F3AF /* RAPageViewController.m */,
