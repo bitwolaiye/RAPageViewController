@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PSTCollectionView.h"
 
 @class RAPageCollectionView;
-@protocol RAPageCollectionViewDelegate <UICollectionViewDelegate>
+@protocol RAPageCollectionViewDelegate <PSUICollectionViewDelegate>
 
 - (void) pageCollectionView:(RAPageCollectionView *)pageCollectionView willChangeFromFrame:(CGRect)fromBounds toFrame:(CGRect)toBounds;
 - (void) pageCollectionView:(RAPageCollectionView *)pageCollectionView didChangeFromFrame:(CGRect)fromBounds toFrame:(CGRect)toBounds;

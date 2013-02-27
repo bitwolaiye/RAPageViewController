@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "RAPageCollectionViewDelegate.h"
+#import "PSTCollectionView.h"
 
-@interface RAPageCollectionView : UICollectionView
+@interface RAPageCollectionView : PSTCollectionView
 
-@property (nonatomic, assign) id <RAPageCollectionViewDelegate> delegate;
+@property (nonatomic, assign) id <RAPageCollectionViewDelegate> pageViewDelegate;
 
 @end

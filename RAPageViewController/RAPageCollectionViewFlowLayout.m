@@ -32,9 +32,9 @@
 	//	view is private, but people should feel free to re-configure
 	//	everything.
 	
-	return [answer filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^(UICollectionViewLayoutAttributes *attributes, NSDictionary *bindings) {
+	return [answer filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^(PSUICollectionViewLayoutAttributes *attributes, NSDictionary *bindings) {
 		
-		return (BOOL)(attributes.representedElementCategory == UICollectionElementCategoryCell);
+		return (BOOL)(attributes.representedElementCategory == PSTCollectionViewItemTypeCell);
 		
 	}]];
 	
@@ -49,7 +49,7 @@
 	
 	switch (self.scrollDirection) {
 		
-		case UICollectionViewScrollDirectionHorizontal: {
+		case PSTCollectionViewScrollDirectionHorizontal: {
 		
 			CGFloat pageWidth = (self.minimumLineSpacing + self.itemSize.width);
 			
@@ -60,7 +60,7 @@
 		
 		}
 		
-		case UICollectionViewScrollDirectionVertical: {
+		case PSTCollectionViewScrollDirectionVertical: {
 		
 			CGFloat pageHeight = (self.minimumLineSpacing + self.itemSize.height);
 			

@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "RAPageCollectionViewCellDelegate.h"
+#import "PSTCollectionView.h"
 
-@interface RAPageCollectionViewCell : UICollectionViewCell
+@interface RAPageCollectionViewCell : PSTCollectionViewCell
 
 @property (nonatomic, readwrite, weak) id<RAPageCollectionViewCellDelegate> delegate;
 

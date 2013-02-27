@@ -16,21 +16,21 @@
 	CGRect fromFrame = self.frame;
 	CGRect toFrame = frame;
 		
-	[self.delegate pageCollectionView:self willChangeFromFrame:fromFrame toFrame:toFrame];
+	[self.pageViewDelegate pageCollectionView:self willChangeFromFrame:fromFrame toFrame:toFrame];
 	
 	[super setFrame:frame];
 
-	[self.delegate pageCollectionView:self didChangeFromFrame:fromFrame toFrame:toFrame];
+	[self.pageViewDelegate pageCollectionView:self didChangeFromFrame:fromFrame toFrame:toFrame];
 	
 }
 
 - (void) layoutSubviews {
 
-	[self.delegate pageCollectionViewWillLayout:self];
+	[self.pageViewDelegate pageCollectionViewWillLayout:self];
 	
 	[super layoutSubviews];
 	
-	[self.delegate pageCollectionViewDidLayout:self];
+	[self.pageViewDelegate pageCollectionViewDidLayout:self];
 
 }
 

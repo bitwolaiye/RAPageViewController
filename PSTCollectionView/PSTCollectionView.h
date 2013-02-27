@@ -38,7 +38,7 @@ typedef NS_OPTIONS(NSUInteger, PSTCollectionViewScrollPosition) {
 - (id)initWithFrame:(CGRect)frame collectionViewLayout:(PSTCollectionViewLayout *)layout; // the designated initializer
 
 @property (nonatomic, strong) PSTCollectionViewLayout *collectionViewLayout;
-@property (nonatomic, assign) IBOutlet id <PSTCollectionViewDelegate> delegate;
+@property (nonatomic, assign) IBOutlet id <PSTCollectionViewDelegate> collectionDelegate;
 @property (nonatomic, assign) IBOutlet id <PSTCollectionViewDataSource> dataSource;
 @property (nonatomic, strong) UIView *backgroundView; // will be automatically resized to track the size of the collection view and placed behind all cells and supplementary views.
 

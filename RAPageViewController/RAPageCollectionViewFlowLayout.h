@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PSTCollectionView.h"
 
-@interface RAPageCollectionViewFlowLayout : UICollectionViewFlowLayout
+@interface RAPageCollectionViewFlowLayout : PSTCollectionViewFlowLayout
 
 @end

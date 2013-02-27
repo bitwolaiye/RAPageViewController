@@ -51,19 +51,19 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 	
 	if ([self.delegate numberOfViewControllersInPageCollectionViewController:self]) {
 		
-		self.lastIndexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+		self.lastIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 		
 	}
 	
 }
 
-- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger) collectionView:(PSUICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
 
 	return [self.delegate numberOfViewControllersInPageCollectionViewController:self];
 
 }
 
-- (UICollectionViewCell *) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (PSTCollectionViewCell *) collectionView:(PSUICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
 
 	NSString * const identifier = [[self class] collectionViewCellReuseIdentifier];
 	RAPageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
@@ -79,20 +79,19 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 
 }
 
-- (UICollectionView *) collectionView {
+- (PSTCollectionView *) collectionView {
 
 	if (!_collectionView) {
 	
 		if (![self isViewLoaded])
 			return nil;
 	
-		UICollectionViewFlowLayout *layout = self.collectionViewLayout;
+		PSTCollectionViewFlowLayout *layout = self.collectionViewLayout;
 		CGRect frame = CGRectInset(
 			self.view.bounds,
 			-0.5f * layout.minimumLineSpacing,
 			-0.5f * layout.minimumLineSpacing
 		);
-		
 		_collectionView = [[RAPageCollectionView alloc] initWithFrame:frame collectionViewLayout:layout];
 		_collectionView.dataSource = self;
 		_collectionView.delegate = self;
@@ -103,17 +102,17 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 		
 		//	If you change the scroll direction later, you’re responsible for twiddling the bouncy bits
 		
-		_collectionView.alwaysBounceHorizontal = (layout.scrollDirection == UICollectionViewScrollDirectionHorizontal);
-		_collectionView.alwaysBounceVertical = (layout.scrollDirection == UICollectionViewScrollDirectionVertical);
+		_collectionView.alwaysBounceHorizontal = (layout.scrollDirection == PSTCollectionViewScrollDirectionHorizontal);
+		_collectionView.alwaysBounceVertical = (layout.scrollDirection == PSTCollectionViewScrollDirectionVertical);
 		
 		_collectionView.showsHorizontalScrollIndicator = NO;
 		_collectionView.showsVerticalScrollIndicator = NO;
 				
 		[_collectionView registerClass:[[self class] collectionViewCellClass] forCellWithReuseIdentifier:[[self class] collectionViewCellReuseIdentifier]];
 		
-		[_collectionView registerClass:[RAPageCollectionViewSpacer class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"Spacer"];
+		[_collectionView registerClass:[RAPageCollectionViewSpacer class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionHeader withReuseIdentifier:@"Spacer"];
 		
-		[_collectionView registerClass:[RAPageCollectionViewSpacer class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"Spacer"];
+		[_collectionView registerClass:[RAPageCollectionViewSpacer class] forSupplementaryViewOfKind:PSTCollectionElementKindSectionFooter withReuseIdentifier:@"Spacer"];
 			
 	}
 	
@@ -121,14 +120,14 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 
 }
 
-- (UICollectionViewFlowLayout *) collectionViewLayout {
+- (PSTCollectionViewFlowLayout *) collectionViewLayout {
 
 	if (!_collectionViewLayout) {
 	
 		_collectionViewLayout = [RAPageCollectionViewFlowLayout new];
 		_collectionViewLayout.minimumLineSpacing = 16.0f;
 		_collectionViewLayout.minimumInteritemSpacing = 16.0f;
-		_collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+		_collectionViewLayout.scrollDirection = PSTCollectionViewScrollDirectionHorizontal;
 		_collectionViewLayout.headerReferenceSize = (CGSize){ 8, 8 };
 		_collectionViewLayout.footerReferenceSize = (CGSize){ 8, 8 };
 				
@@ -138,7 +137,7 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 
 }
 
-- (void) collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
+- (void) collectionView:(PSUICollectionView *)collectionView didEndDisplayingCell:(PSUICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath {
 
 	if ([cell isKindOfClass:[RAPageCollectionViewCell class]]) {
 	
@@ -156,20 +155,20 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 
 }
 
-- (UICollectionViewLayoutAttributes *) centermostElementAttributesInRect:(CGRect)rect {
+- (PSTCollectionViewLayoutAttributes *) centermostElementAttributesInRect:(CGRect)rect {
 	
 	CGPoint visualCenter = (CGPoint){
 		CGRectGetMidX(rect),
 		CGRectGetMidY(rect)
 	};
 	
-	UICollectionView *collectionView = self.collectionView;
+	PSTCollectionView *collectionView = self.collectionView;
 	
 	CGFloat (^distance)(CGPoint, CGPoint) = ^ (CGPoint lhs, CGPoint rhs) {
 		return sqrtf(powf(rhs.x - lhs.x, 2) + powf(rhs.y - lhs.y, 2));
 	};
 	
-	NSArray *cellsByDistance = [[collectionView visibleCells] sortedArrayUsingComparator:^(UICollectionViewCell *lhs, UICollectionViewCell *rhs) {
+	NSArray *cellsByDistance = [[collectionView visibleCells] sortedArrayUsingComparator:^(PSUICollectionViewCell *lhs, PSUICollectionViewCell *rhs) {
 		
 		CGFloat lhsDistance = distance(lhs.center, visualCenter);
 		CGFloat rhsDistance = distance(rhs.center, visualCenter);
@@ -271,7 +270,7 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 			
 			[self setDisplayIndex:lastIndex animated:NO completion:nil];
 			
-			RAPageCollectionViewCell *cell = (RAPageCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:lastIndex inSection:0]];
+			RAPageCollectionViewCell *cell = (RAPageCollectionViewCell *)[self.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForRow:lastIndex inSection:0]];
 			
 			cell.parentViewController = self;
 			cell.childViewController = viewController;
@@ -296,7 +295,7 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 
 	[super viewWillLayoutSubviews];
 	
-	UICollectionViewFlowLayout *layout = self.collectionViewLayout;
+	PSTCollectionViewFlowLayout *layout = self.collectionViewLayout;
 	
 	self.collectionView.frame = CGRectInset(
 		self.view.bounds,
@@ -320,9 +319,9 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 
 - (CGFloat) displayIndexFromCurrentState {
 
-	UICollectionView *pageCollectionView = self.collectionView;
-	UICollectionViewFlowLayout *flowLayout = (UICollectionViewFlowLayout *)pageCollectionView.collectionViewLayout;
-	UICollectionViewLayoutAttributes *element = [self centermostElementAttributesInRect:pageCollectionView.bounds];
+	PSTCollectionView *pageCollectionView = self.collectionView;
+	PSTCollectionViewFlowLayout *flowLayout = (PSTCollectionViewFlowLayout *)pageCollectionView.collectionViewLayout;
+	PSTCollectionViewLayoutAttributes *element = [self centermostElementAttributesInRect:pageCollectionView.bounds];
 	
 	if (!element) {
 		
@@ -343,7 +342,7 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 		
 		switch (flowLayout.scrollDirection) {
 			
-			case UICollectionViewScrollDirectionHorizontal: {
+			case PSTCollectionViewScrollDirectionHorizontal: {
 				
 				CGFloat pageBreadth = [self pageSpacing] + element.size.width;
 				CGFloat containerBreadth = CGRectGetWidth(presentationBounds);
@@ -354,7 +353,7 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 				
 			}
 			
-			case UICollectionViewScrollDirectionVertical: {
+			case PSTCollectionViewScrollDirectionVertical: {
 				
 				CGFloat pageBreadth = [self pageSpacing] + element.size.height;
 				CGFloat containerBreadth = CGRectGetHeight(presentationBounds);
@@ -428,16 +427,16 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 	CGPoint toContentOffset = CGPointZero;
 	CGFloat pageBreadth = NAN;
 	
-	UICollectionViewFlowLayout *layout = self.collectionViewLayout;
+	PSTCollectionViewFlowLayout *layout = self.collectionViewLayout;
 	switch (layout.scrollDirection) {
 		
-		case UICollectionViewScrollDirectionHorizontal: {
+		case PSTCollectionViewScrollDirectionHorizontal: {
 			pageBreadth = layout.itemSize.width + [self pageSpacing];
 			toContentOffset = (CGPoint) { .x = displayIndex * pageBreadth };
 			break;
 		}
 		
-		case UICollectionViewScrollDirectionVertical: {
+		case PSTCollectionViewScrollDirectionVertical: {
 			pageBreadth = layout.itemSize.height + [self pageSpacing];
 			toContentOffset = (CGPoint) { .y = displayIndex * pageBreadth };
 			break;
@@ -455,7 +454,7 @@ static NSString * const RAPageCollectionViewDidEndScrollAnimationNotification = 
 		
 		[UIView animateWithDuration:0.3f delay:0.0f options:UIViewAnimationOptionLayoutSubviews animations:^{
 			
-			UICollectionView *collectionView = self.collectionView;
+			PSTCollectionView *collectionView = self.collectionView;
 			__weak NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 			
 			__block __unsafe_unretained id observer = [notificationCenter addObserverForName:RAPageCollectionViewDidEndScrollAnimationNotification object:collectionView queue:nil usingBlock:^(NSNotification *note) {
